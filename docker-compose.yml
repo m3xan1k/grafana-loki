@@ -1,0 +1,22 @@
+version: '3'
+
+
+volumes:
+  grafana_data:
+
+
+services:
+  grafana:
+    image: grafana/grafana:8.4.3
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana_data:/var/lib/grafana
+  loki:
+    image: grafana/loki:latest
+    restart: unless-stopped
+    ports:
+      - '3100:3100'
+    depends_on:
+      - grafana
